@@ -74,8 +74,8 @@ users.post('/login', (req, res) => {
     })
 })
 
-users.get('/profile', (req, res) => {
-    var decoded = jwt.verify(req.header['authorization'], process.env.SECRET_KEY)
+users.get('/profileReg', (req, res) => {
+   const decoded = jwt.verify(req.header['authorization'], process.env.SECRET_KEY)
      
     User.findOne({
         _id: decoded._id

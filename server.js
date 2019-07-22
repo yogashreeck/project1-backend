@@ -30,9 +30,12 @@ mongoose
 .then(() => console.log("mongoDB connected"))
 .catch(err => console.log(err))
 
-var Users = require('./routes/Users')
+const Users = require('./routes/Users')
+const StudentProfile = require('./routes/StudentPro')
+
 
 app.use('/users', Users)
+app.use('/users', StudentProfile)
 
 app.get('/', function(req, res) {
   res.send('hello');
