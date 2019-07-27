@@ -14,6 +14,7 @@ profile.post('/studentProfile', (req,res) =>{
         studentname: req.body.studentname,
         address: req.body. address,
         email: req.body.email,
+      course: req.body.course,
         mobileNumber: req.body.mobileNumber
     }
     StudentProfile.findOne({

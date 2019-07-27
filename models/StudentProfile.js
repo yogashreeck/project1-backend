@@ -15,6 +15,10 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
+ course: {
+    type: String,
+    required: true
+  },
   mobileNumber: {
     type: String,
     required: true
