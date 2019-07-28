@@ -74,23 +74,23 @@ users.post('/login', (req, res) => {
     })
 })
 
-users.get('/profileReg', (req, res) => {
-   const decoded = jwt.verify(req.header['authorization'], process.env.SECRET_KEY)
+// users.get('/profileReg', (req, res) => {
+//    const decoded = jwt.verify(req.header['authorization'], process.env.SECRET_KEY)
      
-    User.findOne({
-        _id: decoded._id
-    })
-    .then(user => {
-        if(user) {
-            res.json(user)
-        }else{
-            res.send("User does not exist")
-        }
-    })
-    .catch(err => {
-        res.send('error: ' + err)
-    })
-})
+//     User.findOne({
+//         _id: decoded._id
+//     })
+//     .then(user => {
+//         if(user) {
+//             res.json(user)
+//         }else{
+//             res.send("User does not exist")
+//         }
+//     })
+//     .catch(err => {
+//         res.send('error: ' + err)
+//     })
+// })
 
 
 module.exports = users;
