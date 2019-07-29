@@ -44,9 +44,9 @@ profile.post('/studentProfile', (req, res) => {
 })
 profile.get('/studentProfile', (req, res) => {
   //    const decoded = jwt.verify(req.header['authorization'], process.env.SECRET_KEY)
-
+  console.log(req)
   StudentProfile.find({
-    // _id: decoded._id
+    studentname: req.query['studentname']
   })
     .then(user => {
       if (user) {
@@ -61,9 +61,10 @@ profile.get('/studentProfile', (req, res) => {
 })
 
 profile.delete('/studentProfile/:id', (req, res) => {
-
+  console.log(req.params)
   StudentProfile.findOneAndDelete({
     // _id: decoded._id
+    studentname: req.params['studentname']
   })
     .then(user => {
       if (user) {
@@ -97,9 +98,10 @@ profile.put('/studentProfile/:id', (req, res) => {
 })
 
 profile.get('/studentProfile/:id', (req, res) => {
+  console.log(req)
 
   StudentProfile.findOne({
-    // _id: decoded._id
+    studentname: "yogashree"
   })
     .then(user => {
       if (user) {
