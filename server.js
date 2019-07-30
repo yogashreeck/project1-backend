@@ -34,6 +34,7 @@ mongoose
 
 const Users = require('./routes/Users')
 const StudentProfile = require('./routes/StudentPro')
+// const StudentProfile = require('./routes/Course')
 
 
 app.use('/users', Users)

@@ -1,8 +1,6 @@
 const express = require("express")
 const profile = express.Router();
 const cors = require("cors")
-const jwt = require("jsonwebtoken")
-const bcrypt = require("bcrypt")
 
 const StudentProfile = require("../models/StudentProfile")
 profile.use(cors())
@@ -59,17 +57,33 @@ profile.get('/studentProfile', (req, res) => {
       res.send('error: ' + err)
     })
 })
-
+profile.get('/student', (req, res) => {
+  //    const decoded = jwt.verify(req.header['authorization'], process.env.SECRET_KEY)
+  StudentProfile.find({
+    // studentname: req.query['id']
+  })
+    .then(user => {
+      if (user) {
+        res.json(user)
+      } else {
+        res.send("User does not exist")
+      }
+    })
+    .catch(err => {
+      res.send('error: ' + err)
+    })
+})
 profile.delete('/studentProfile/:id', (req, res) => {
-  console.log(req.params)
+  console.log(req.params['_id'])
   StudentProfile.findOneAndDelete({
     // _id: decoded._id
-    studentname: req.params['studentname']
+    // _id: req.params['_id']
+    studentname: req.query['studentname']
   })
     .then(user => {
       if (user) {
         res.send("deleted")
-        
+
       } else {
         res.send("User does not exist")
       }
@@ -98,7 +112,6 @@ profile.put('/studentProfile/:id', (req, res) => {
 })
 
 profile.get('/studentProfile/:id', (req, res) => {
-  console.log(req)
 
   StudentProfile.findOne({
     studentname: "yogashree"
@@ -116,6 +129,22 @@ profile.get('/studentProfile/:id', (req, res) => {
     })
 })
 
+// profile.get('/course', (req, res) => {
+//   console.log(reqquery['course'])
+//   StudentProfile.find({
+//     course: req.query['course']
+//   })
+//     .then(user => {
+//       if (user) {
+//         res.json(user)
+//       } else {
+//         res.send("User does not exist")
+//       }
+//     })
+//     .catch(err => {
+//       res.send('error: ' + err)
+//     })
+// })
 
 
 
