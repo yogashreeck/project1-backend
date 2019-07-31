@@ -42,7 +42,7 @@ profile.post('/studentProfile', (req, res) => {
 })
 profile.get('/studentProfile', (req, res) => {
   //    const decoded = jwt.verify(req.header['authorization'], process.env.SECRET_KEY)
-  console.log(req)
+  // console.log(req)
   StudentProfile.find({
     studentname: req.query['studentname']
   })
@@ -73,12 +73,13 @@ profile.get('/student', (req, res) => {
       res.send('error: ' + err)
     })
 })
-profile.delete('/studentProfile/:id', (req, res) => {
-  console.log(req.params['_id'])
-  StudentProfile.findOneAndDelete({
+profile.delete('/studentProfile', (req, res) => {
+  debugger;
+  console.log(req.body.id, "delete")
+  StudentProfile.findByIdAndDelete({
     // _id: decoded._id
-    // _id: req.params['_id']
-    studentname: req.query['studentname']
+    _id: req.body.id
+    // studentname: req.query['studentname']
   })
     .then(user => {
       if (user) {
@@ -129,22 +130,22 @@ profile.get('/studentProfile/:id', (req, res) => {
     })
 })
 
-// profile.get('/course', (req, res) => {
-//   console.log(reqquery['course'])
-//   StudentProfile.find({
-//     course: req.query['course']
-//   })
-//     .then(user => {
-//       if (user) {
-//         res.json(user)
-//       } else {
-//         res.send("User does not exist")
-//       }
-//     })
-//     .catch(err => {
-//       res.send('error: ' + err)
-//     })
-// })
+profile.get('/course', (req, res) => {
+  console.log(req.query.course)
+  StudentProfile.find({
+  course:req.query.course
+  })
+    .then(user => {
+      if (user) {
+        res.json(user)
+      } else {
+        res.send("User does not exist")
+      }
+    })
+    .catch(err => {
+      res.send('error: ' + err)
+    })
+})
 
 
 
