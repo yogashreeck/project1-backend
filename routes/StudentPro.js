@@ -42,9 +42,11 @@ profile.post('/studentProfile', (req, res) => {
 })
 profile.get('/studentProfile', (req, res) => {
   //    const decoded = jwt.verify(req.header['authorization'], process.env.SECRET_KEY)
-  // console.log(req)
+  console.log(req)
   StudentProfile.find({
-    studentname: req.query['studentname']
+    studentname: req.query['studentname'],
+   course: req.query['course']
+
   })
     .then(user => {
       if (user) {
@@ -130,22 +132,22 @@ profile.get('/studentProfile/:id', (req, res) => {
     })
 })
 
-profile.get('/course', (req, res) => {
-  console.log(req.query.course)
-  StudentProfile.find({
-  course:req.query.course
-  })
-    .then(user => {
-      if (user) {
-        res.json(user)
-      } else {
-        res.send("User does not exist")
-      }
-    })
-    .catch(err => {
-      res.send('error: ' + err)
-    })
-})
+// profile.get('/course', (req, res) => {
+//   console.log(req)
+//   StudentProfile.findById({
+//     _id: req.body.id
+//   })
+//     .then(user => {
+//       if (user) {
+//         res.json(user)
+//       } else {
+//         res.send("User does not exist")
+//       }
+//     })
+//     .catch(err => {
+//       res.send('error: ' + err)
+//     })
+// })
 
 
 
