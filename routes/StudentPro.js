@@ -44,8 +44,7 @@ profile.get('/studentProfile', (req, res) => {
   //    const decoded = jwt.verify(req.header['authorization'], process.env.SECRET_KEY)
   console.log(req)
   StudentProfile.find({
-    studentname: req.query['studentname'],
-   course: req.query['course']
+    studentname: req.query['studentname']
 
   })
     .then(user => {
@@ -60,9 +59,9 @@ profile.get('/studentProfile', (req, res) => {
     })
 })
 profile.get('/student', (req, res) => {
-  //    const decoded = jwt.verify(req.header['authorization'], process.env.SECRET_KEY)
+  
   StudentProfile.find({
-    // studentname: req.query['id']
+  
   })
     .then(user => {
       if (user) {
@@ -132,22 +131,40 @@ profile.get('/studentProfile/:id', (req, res) => {
     })
 })
 
-// profile.get('/course', (req, res) => {
-//   console.log(req)
-//   StudentProfile.findById({
-//     _id: req.body.id
-//   })
-//     .then(user => {
-//       if (user) {
-//         res.json(user)
-//       } else {
-//         res.send("User does not exist")
-//       }
-//     })
-//     .catch(err => {
-//       res.send('error: ' + err)
-//     })
-// })
+profile.get('/course', (req, res) => {
+  console.log(req)
+  StudentProfile.find({
+    // _id: req.body.id
+  })
+    .then(user => {
+      if (user) {
+        res.json(user)
+      } else {
+        res.send("User does not exist")
+      }
+    })
+    .catch(err => {
+      res.send('error: ' + err)
+    })
+})
+
+profile.get('/courseall', (req, res) => {
+  var monthRec = req.query.month;
+ var yearRec = req.query.year;
+ if(monthRec && monthRec != 'All'){
+  StudentProfile.find({$and: [ {month: monthRec}, {year: yearRec}]}, function(err, expenses) {
+   if (err)
+    res.send(err);
+   res.json(expenses);
+  });
+ } else {
+  StudentProfile.find({year: yearRec}, function(err, expenses) {
+   if (err)
+    res.send(err);
+   res.json(expenses);
+  });
+ }
+})
 
 
 
