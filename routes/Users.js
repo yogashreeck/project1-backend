@@ -7,7 +7,7 @@ const bcrypt = require("bcrypt")
 const User = require("../models/User")
 users.use(cors())
 
-process.env.SECRET_KEY - 'secret'
+process.env.SECRET_KEY = 'secret'
 
 users.post('/register', (req,res) =>{
     const today = new Date()
@@ -61,6 +61,7 @@ users.post('/login', (req, res) => {
                 let token = jwt.sign(payload, process.env.SECRET_KEY, {
                     expiresIn: 1440
                 })
+              
                 res.send(token)
             }else{
                 res.json({error: 'incorrect password'})

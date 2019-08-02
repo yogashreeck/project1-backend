@@ -5,7 +5,6 @@ const cors = require("cors")
 const StudentProfile = require("../models/StudentProfile")
 profile.use(cors())
 
-// process.env.SECRET_KEY - 'secret'
 
 profile.post('/studentProfile', (req, res) => {
   const userData = {
@@ -23,7 +22,6 @@ profile.post('/studentProfile', (req, res) => {
   })
     .then(user => {
       if (!user) {
-        // bcrypt.hash(req.body.studentname, 10, (err,hash) => {
         StudentProfile.create(userData)
           .then(user => {
             res.json({ status: 'student registered!' })
@@ -31,7 +29,6 @@ profile.post('/studentProfile', (req, res) => {
           .catch(err => {
             res.send('error: ' + err)
           })
-        // })
       } else {
         res.json({ error: 'User already exists' })
       }
@@ -41,7 +38,6 @@ profile.post('/studentProfile', (req, res) => {
     })
 })
 profile.get('/studentProfile', (req, res) => {
-  //    const decoded = jwt.verify(req.header['authorization'], process.env.SECRET_KEY)
   console.log(req)
   StudentProfile.find({
     studentname: req.query['studentname']
@@ -132,9 +128,9 @@ profile.get('/studentProfile/:id', (req, res) => {
 })
 
 profile.get('/course', (req, res) => {
-  console.log(req)
+  console.log(req.query['course'])
   StudentProfile.find({
-    // _id: req.body.id
+    course:req.query['course']
   })
     .then(user => {
       if (user) {
@@ -148,23 +144,7 @@ profile.get('/course', (req, res) => {
     })
 })
 
-profile.get('/courseall', (req, res) => {
-  var monthRec = req.query.month;
- var yearRec = req.query.year;
- if(monthRec && monthRec != 'All'){
-  StudentProfile.find({$and: [ {month: monthRec}, {year: yearRec}]}, function(err, expenses) {
-   if (err)
-    res.send(err);
-   res.json(expenses);
-  });
- } else {
-  StudentProfile.find({year: yearRec}, function(err, expenses) {
-   if (err)
-    res.send(err);
-   res.json(expenses);
-  });
- }
-})
+
 
 
 
