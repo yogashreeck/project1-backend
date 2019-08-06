@@ -36,8 +36,14 @@ users.post('/register', (req,res) =>{
                     res.send('error: ' + err)
                 })
             })
-        }else{
-            res.json({error: 'User already exists'})
+        }else {
+            if (req.body.password !== req.body.confirmPassword) {
+                res.send("password does not match");
+                res.json("password does not match");
+            }
+            else {
+                res.json({ error: 'User already exists' })
+            }
         }
     })
     .catch(err => {
