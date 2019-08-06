@@ -90,19 +90,33 @@ profile.delete('/studentProfile', (req, res) => {
       res.send('error: ' + err)
     })
 })
+profile.post('/studentProfile/edit/:id',(req, res) => {
+  const id = req.params.id;
+  profile.findById(id, function (err, profile){
+      res.json(profile);
+  });
+});
 
-profile.put('/studentProfile/:id', (req, res) => {
-
-  StudentProfile.findOneAndUpdate({
+profile.post('/studentProfile/update/:id', (req, res) => {
+  console.log(req.body.id, "update")
+  StudentProfile.findByIdAndUpdate({
+   
     // _id: decoded._id
+    _id: req.params.id
   })
     .then(user => {
-      if (user) {
+    
         res.send("updated")
-        
-      } else { 
-        res.send("User does not exist")
-      }
+        user.studentname = req.body.studentname;
+        user.address = req.body. address;
+        user.email = req.body.email;
+        user.course = req.body.course;
+        user.mobileNumber = req.body.mobileNumber;
+    
+
+        user.save()
+        .then(() => res.json('Exercise updated!'))
+        .catch(err => res.status(400).json('Error: ' + err));
     })
     .catch(err => {
       res.send('error: ' + err)
