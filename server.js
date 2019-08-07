@@ -15,16 +15,6 @@ app.use(
         extended: false
     })
 )
-
-// mongoose.Promise = global.Promise;
-// mongoose.connect('mongodb://localhost:27017/project1-backend',{ useNewUrlParser: true })
-// .then(
-//     () => {
-//       console.log('Connected to mongoDB');
-//     },
-//     (err) => console.log('Error connecting to mongoDB', err)
-//   );
-
 const mongoURI = 'mongodb://localhost:27017/project1-backend'
 
 mongoose
