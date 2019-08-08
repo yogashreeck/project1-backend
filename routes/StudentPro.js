@@ -95,8 +95,8 @@ profile.delete('/studentProfile', (req, res) => {
 })
 
 //edit by id
-// profile.get('/edit',(req, res) => {
-//   console.log(req,'hi')
+// profile.get('/edit/:id',(req, res) => {
+//   console.log(req.params,'hi')
 //   const id = req.params.id;
 //   StudentProfile.findById(id, function (err, StudentProfile){
 //       res.json(StudentProfile);
@@ -134,7 +134,7 @@ profile.post('/studentProfile/update/:id', (req, res) => {
       user.mobileNumber = req.body.mobileNumber;
     
       user.save()
-      .then(() => res.json('Exercise updated!'))
+      .then(() => res.json(' updated!'))
       .catch(err => res.status(400).json('Error: ' + err));
     })
     .catch(err => {
@@ -180,7 +180,3 @@ profile.get('/course', (req, res) => {
 })
 
 module.exports = profile; 
-
-
-
-
