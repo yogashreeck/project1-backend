@@ -1,10 +1,9 @@
 const express = require("express")
 const profile = express.Router();
 const cors = require("cors")
-
 const StudentProfile = require("../models/StudentProfile")
 profile.use(cors())
-
+process.env.SECRET_KEY = 'secret'
 
 profile.post('/studentProfile', (req, res) => {
   const userData = {
@@ -40,10 +39,8 @@ profile.post('/studentProfile', (req, res) => {
 
 //seraching by student name
 profile.get('/studentProfile', (req, res) => {
-  // console.log(req)
   StudentProfile.find({
     studentname: req.query['studentname']
-
   })
     .then(user => {
       if (user) {
@@ -60,7 +57,7 @@ profile.get('/studentProfile', (req, res) => {
 // get all students deatils
 profile.get('/student', (req, res) => {
   StudentProfile.find({
-  
+
   })
     .then(user => {
       if (user) {
@@ -76,7 +73,6 @@ profile.get('/student', (req, res) => {
 
 // delete by id
 profile.delete('/studentProfile', (req, res) => {
-  debugger;
   console.log(req.body.id, "delete")
   StudentProfile.findByIdAndDelete({
     _id: req.body.id
@@ -103,9 +99,8 @@ profile.delete('/studentProfile', (req, res) => {
 //   });
 // });
 profile.get('/edit/:id', (req, res) => {
-  console.log(req,'hi')
   StudentProfile.findById({
-    _id : req.params.id
+    _id: req.params.id,
   })
     .then(user => {
       if (user) {
@@ -128,14 +123,14 @@ profile.post('/studentProfile/update/:id', (req, res) => {
     .then(user => {
       res.send("updated")
       user.studentname = req.body.studentname;
-      user.address = req.body. address;
+      user.address = req.body.address;
       user.email = req.body.email;
       user.course = req.body.course;
       user.mobileNumber = req.body.mobileNumber;
-    
+
       user.save()
-      .then(() => res.json(' updated!'))
-      .catch(err => res.status(400).json('Error: ' + err));
+        .then(() => res.json(' updated!'))
+        .catch(err => res.status(400).json('Error: ' + err));
     })
     .catch(err => {
       res.send('error: ' + err)
@@ -144,15 +139,14 @@ profile.post('/studentProfile/update/:id', (req, res) => {
 
 //student by name
 profile.get('/studentProfile/:id', (req, res) => {
-
   StudentProfile.findOne({
     studentname: "yogashree"
   })
     .then(user => {
       if (user) {
         res.json(user)
-        
-      } else { 
+
+      } else {
         res.send("User does not exist")
       }
     })
@@ -163,9 +157,8 @@ profile.get('/studentProfile/:id', (req, res) => {
 
 // course by particular name
 profile.get('/course', (req, res) => {
-  console.log(req.query['course'])
   StudentProfile.find({
-    course:req.query['course']
+    course: req.query['course']
   })
     .then(user => {
       if (user) {
