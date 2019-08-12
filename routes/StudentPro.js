@@ -95,35 +95,35 @@ profile.delete('/studentProfile', (req, res) => {
 })
 
 //edit by id
-// profile.get('/edit/:id',(req, res) => {
-//   console.log(req.params,'hi')
-//   const id = req.params.id;
-//   StudentProfile.findById(id, function (err, StudentProfile){
-//       res.json(StudentProfile);
-//   });
-// });
-profile.get('/edit/:id', (req, res) => {
-  console.log(req,'hi')
-  StudentProfile.findById({
-    _id : req.params.id
-  })
-    .then(user => {
-      if (user) {
-        res.json(user)
-      } else {
-        res.send("User does not exist")
-      }
-    })
-    .catch(err => {
-      res.send('error: ' + err)
-    })
-})
+profile.get('/edit/:id',(req, res) => {
+  console.log(req.params,'hi')
+  const id = req.params.id;
+  StudentProfile.findById(id, function (err, StudentProfile){
+      res.json(StudentProfile);
+  });
+});
+// profile.get('/edit/:id', (req, res) => {
+//   console.log(req,'hi')
+//   StudentProfile.findById({
+//     _id : req.params.id
+//   })
+//     .then(user => {
+//       if (user) {
+//         res.json(user)
+//       } else {
+//         res.send("User does not exist")
+//       }
+//     })
+//     .catch(err => {
+//       res.send('error: ' + err)
+//     })
+// })
 
 // update by id
 profile.post('/studentProfile/update/:id', (req, res) => {
-  console.log(req.body.id, "update")
+  console.log(req.body, "update")
   StudentProfile.findByIdAndUpdate({
-    _id: req.params.id
+    _id: req.body
   })
     .then(user => {
       res.send("updated")
@@ -163,7 +163,6 @@ profile.get('/studentProfile/:id', (req, res) => {
 
 // course by particular name
 profile.get('/course', (req, res) => {
-  console.log(req.query['course'])
   StudentProfile.find({
     course:req.query['course']
   })
