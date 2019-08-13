@@ -91,11 +91,11 @@ profile.delete('/studentProfile', (req, res) => {
 })
 
 //edit by id
-profile.get('/edit/:id',(req, res) => {
-  console.log(req.params,'hi')
+profile.get('/edit/:id', (req, res) => {
+  console.log(req.params, 'hi')
   const id = req.params.id;
-  StudentProfile.findById(id, function (err, StudentProfile){
-      res.json(StudentProfile);
+  StudentProfile.findById(id, function (err, StudentProfile) {
+    res.json(StudentProfile);
   });
 });
 // profile.get('/edit/:id', (req, res) => {
@@ -114,51 +114,30 @@ profile.get('/edit/:id',(req, res) => {
 //       res.send('error: ' + err)
 //     })
 // })
-// profile.get('/edit/:id',(req, res) => {
-//   console.log(req.params,'hi')
-//   const id = req.params.id;
-//   StudentProfile.findById(id, function (err, StudentProfile){
-//       res.json(StudentProfile);
-//   });
-// });
-profile.get('/edit/:id', (req, res) => {
-  StudentProfile.findById({
-    _id: req.params.id,
-  })
-    .then(user => {
-      if (user) {
-        res.json(user)
-      } else {
-        res.send("User does not exist")
-      }
-    })
-    .catch(err => {
-      res.send('error: ' + err)
-    })
-})
+
 
 // update by id
-profile.post('/studentProfile/update/:id', (req, res) => {
+profile.put('/studentProfile/update/:id', (req, res) => {
   console.log(req.body, "update")
-  StudentProfile.findByIdAndUpdate({
-    _id: req.body
-  })
+  StudentProfile.findOneAndUpdate({
+    _id: req.params.id
+  },
+    {
+      studentname: req.body.studentname,
+      address: req.body.address,
+      email: req.body.email,
+      course: req.body.course,
+      mobileNumber: req.body.mobileNumber
+    })
     .then(user => {
-      res.send("updated")
-      user.studentname = req.body.studentname;
-      user.address = req.body.address;
-      user.email = req.body.email;
-      user.course = req.body.course;
-      user.mobileNumber = req.body.mobileNumber;
-
-      user.save()
-        .then(() => res.json(' updated!'))
-        .catch(err => res.status(400).json('Error: ' + err));
+      res.json( req.body )
+      // res.send(req.body);
     })
     .catch(err => {
       res.send('error: ' + err)
     })
 })
+
 
 //student by name
 profile.get('/studentProfile/:id', (req, res) => {
@@ -194,5 +173,7 @@ profile.get('/course', (req, res) => {
       res.send('error: ' + err)
     })
 })
+
+
 
 module.exports = profile; 

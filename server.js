@@ -4,7 +4,7 @@ var bodyParser = require("body-parser")
 var app = express()
 var mongoose = require("mongoose")
 var port = process.env.PORT || 8000
-// mongoose.set('useCreateIndex', true);
+mongoose.set('useCreateIndex', true);
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
