@@ -98,23 +98,6 @@ profile.get('/edit/:id', (req, res) => {
     res.json(StudentProfile);
   });
 });
-// profile.get('/edit/:id', (req, res) => {
-//   console.log(req,'hi')
-//   StudentProfile.findById({
-//     _id : req.params.id
-//   })
-//     .then(user => {
-//       if (user) {
-//         res.json(user)
-//       } else {
-//         res.send("User does not exist")
-//       }
-//     })
-//     .catch(err => {
-//       res.send('error: ' + err)
-//     })
-// })
-
 
 // update by id
 profile.put('/studentProfile/update/:id', (req, res) => {

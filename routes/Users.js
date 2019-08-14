@@ -3,7 +3,6 @@ const users = express.Router();
 const cors = require("cors")
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
-// var isAuth=require('../middleware/isAuth');
 const User = require("../models/User")
 users.use(cors())
 
@@ -68,36 +67,17 @@ users.post('/login', (req, res) => {
             expiresIn: 1440
           })
           res.send(token)
-        } else {
-          res.json({ error: 'incorrect password' })
+        } 
+        else {
+          res.send('incorrect password');
         }
       } else {
-        res.json({ error: 'User does not  exist' })
+        res.send('User does not exist');
       }
     })
     .catch(err => {
       res.send('error: ' + err)
     })
 })
-
-// users.get('/profileReg', (req, res) => {
-//    const decoded = jwt.verify(req.header['authorization'], process.env.SECRET_KEY)
-
-//     User.findOne({
-//         _id: decoded._id
-//     })
-//     .then(user => {
-//         if(user) {
-//             res.json(user)
-//         }else{
-//             res.send("User does not exist")
-//         }
-//     })
-//     .catch(err => {
-//         res.send('error: ' + err)
-//     })
-// })
-
-
 
 module.exports = users;
