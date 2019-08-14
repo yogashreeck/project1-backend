@@ -113,7 +113,7 @@ profile.put('/studentProfile/update/:id', (req, res) => {
       mobileNumber: req.body.mobileNumber
     })
     .then(user => {
-      res.json( req.body )
+      res.json(req.body)
       // res.send(req.body);
     })
     .catch(err => {

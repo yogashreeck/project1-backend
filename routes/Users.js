@@ -67,7 +67,7 @@ users.post('/login', (req, res) => {
             expiresIn: 1440
           })
           res.send(token)
-        } 
+        }
         else {
           res.send('incorrect password');
         }
